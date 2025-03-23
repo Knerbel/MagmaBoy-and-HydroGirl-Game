@@ -3,7 +3,7 @@ from gates import Gates
 from character import HydroGirl
 import pytest
 
-# import pygame and orther needed libraries
+# import pygame and other needed libraries
 import sys
 import pygame
 from pygame.locals import *
@@ -46,7 +46,8 @@ collision_cases = [
     (magma_boy, [], []),
     (hydro_girl, [], []),
     # Check for player collisions on floor
-    (magma_boy, [pygame.Rect(16, 350, 16, 16)], [pygame.Rect(16, 350, 16, 16)]),
+    (magma_boy, [pygame.Rect(16, 350, 16, 16)],
+     [pygame.Rect(16, 350, 16, 16)]),
     (hydro_girl, [pygame.Rect(16, 350, 16, 16)],
      [pygame.Rect(16, 350, 16, 16)]),
     # Check for player collisions on goo
@@ -143,9 +144,9 @@ motion_test_cases = [
     (False, True, False, False, True, False),
     # player is jumping, player height increased
     (False, False, True, False, False, True),
-    # player is moving right and jumping, player moved right and height incrased
+    # player is moving right and jumping, player moved right and height incased
     (True, False, True, True, False, True),
-    # player is moving left and jumping, player moved left and height incrased
+    # player is moving left and jumping, player moved left and height incased
     (False, True, True, False, True, True),
 ]
 
@@ -162,7 +163,7 @@ def test_movement(moving_right, moving_left, jumping,
     gates = Gates((285, 128), [(190, 168), (390, 168)])
     board = Board('data/level1.txt')
 
-    # inital locaton
+    # instal locator
     init_x = player.rect.x
     init_y = player.rect.y
 

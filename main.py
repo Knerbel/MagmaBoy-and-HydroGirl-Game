@@ -2,7 +2,7 @@
 Main file for Magma Boy and Hydro Girl game.
 """
 
-# import pygame and orther needed libraries
+# import pygame and other needed libraries
 import sys
 import pygame
 from pygame.locals import *
@@ -15,13 +15,15 @@ from controller import ArrowsController, WASDController, GeneralController
 from gates import Gates
 from doors import FireDoor, WaterDoor
 from level_select import LevelSelect
+import random
 
 
 def main():
     pygame.init()
     controller = GeneralController()
     game = Game()
-    show_intro_screen(game, controller)
+    run_simulation(game, controller)
+    # show_intro_screen(game, controller)
 
 
 def show_intro_screen(game, controller):
@@ -61,6 +63,11 @@ def show_death_screen(game, controller, level):
             run_game(game, controller, level)
         if controller.press_key(events, K_ESCAPE):
             show_level_screen(game, controller)
+
+
+def run_simulation(game, controller):
+    while True:
+        run_game(game, controller)
 
 
 def run_game(game, controller, level="level1"):
@@ -120,10 +127,12 @@ def run_game(game, controller, level="level1"):
 
     clock = pygame.time.Clock()
 
+    frames_survived = 0
+    time_survived = pygame.time.get_ticks()
     # main game loop
     while True:
         # pygame management
-        clock.tick(60)
+        clock.tick(0)
         events = pygame.event.get()
 
         # draw features of level
@@ -132,8 +141,6 @@ def run_game(game, controller, level="level1"):
         if gates:
             game.draw_gates(gates)
         game.draw_doors(doors)
-
-        # draw player
         game.draw_player([magma_boy, hydro_girl])
 
         # move player
@@ -155,19 +162,27 @@ def run_game(game, controller, level="level1"):
 
         # special events
         if hydro_girl.is_dead() or magma_boy.is_dead():
-            show_death_screen(game, controller, level)
+            delta = pygame.time.get_ticks() - time_survived
+            # print(frames_survived/delta)
+            print(frames_survived)
+            return
+            # show_death_screen(game, controller, level)
 
         if game.level_is_done(doors):
-            show_win_screen(game, controller)
+            delta = pygame.time.get_ticks() - time_survived
+            print(frames_survived/delta)
+            return
+            # show_win_screen(game, controller)
 
-        if controller.press_key(events, K_ESCAPE):
-            show_level_screen(game, controller)
+        # if controller.press_key(events, K_ESCAPE):
+        #     show_level_screen(game, controller)
 
         # close window is player clicks on [x]
         for event in events:
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+        frames_survived += 1
 
 
 if __name__ == '__main__':
