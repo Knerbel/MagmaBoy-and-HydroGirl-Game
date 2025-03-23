@@ -78,7 +78,7 @@ class Doors:
 class FireDoor(Doors):
     def __init__(self, door_location):
         CHUNK_SIZE = 16
-        # set door loaction as input door loaction
+        # set door location as input door location
         self.door_location = door_location
         # set door background location as the same as the door
         self.background_location = door_location
@@ -93,7 +93,7 @@ class FireDoor(Doors):
 class WaterDoor(Doors):
     def __init__(self, door_location):
         CHUNK_SIZE = 16
-        # set door loaction as input door loaction
+        # set door location as input door location
         self.door_location = door_location
         # set door background location as the same as the door
         self.background_location = door_location

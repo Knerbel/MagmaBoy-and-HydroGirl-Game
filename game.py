@@ -29,10 +29,10 @@ class Game:
 
         Args:
             level_select::level_select class object
-                A class object that contains the images for the level seleciton
+                A class object that contains the images for the level selection
                 screen.
         """
-        # display main level selectio screen background
+        # display main level selection screen background
         self.display.blit(level_select.screen, (0, 0))
 
         # display the 5 level titles
@@ -56,14 +56,14 @@ class Game:
         Allow for user to select level.
 
         As user clicks up and down arrows, move level indicator up and down.
-        When user clicks <enter>, return which level they selectd.
+        When user clicks <enter>, return which level they select.
 
         Args:
             level_select::level_select class object
-                A class object that contains the images for the level seleciton
+                A class object that contains the images for the level selection
                 screen.
-            controller::controler class object
-                A contoller object that allows access to keyboard inputs
+            controller::controller class object
+                A controller object that allows access to keyboard inputs
         """
         # create current level selected index
         level_index = 0
@@ -108,17 +108,17 @@ class Game:
 
         Args:
             level_select::level_select class object
-                A class object that contains the images for the level seleciton
+                A class object that contains the images for the level selection
                 screen.
             level_index::int
-                Intiger value between 0 and 4.
+                Inniger value between 0 and 4.
         """
         indicator = level_select.indicator_image
         # center indicator at the center of screen
         location_x = (self.display.get_width() - indicator.get_width()) / 2
         # move indicator down depending on level index
         location_y = level_index * 50 + 96
-        # create tuple of cordinates
+        # create tuple of coordinates
         indicator_location = (location_x, location_y)
         # draw indicator
         self.display.blit(level_select.indicator_image, indicator_location)
@@ -146,7 +146,7 @@ class Game:
             display_size::tuple (height, width)
                 The updated height and width of the internal game display
             cords::tuple (x_cord, y_cord)
-                The cordinates of the upper left corner of the internal game
+                The coordinates of the upper left corner of the internal game
                 display so that when it is blit onto window, it is centered.
         """
         window_size = self.screen.get_size()
@@ -172,7 +172,7 @@ class Game:
         Args:
             board::board class object
                 board class object that contains information on chunk images
-                and thier locations
+                and their locations
         """
         self.display.blit(board.get_background(), (0, 0))
 
@@ -183,14 +183,14 @@ class Game:
         Args:
             board::board class object
                 board class object that contains information on chunk images
-                and thier locations
+                and their locations
         """
         # draw the full background
         board_textures = board.get_board_textures()
         # draw the solid blocks and liquids
         for y, row in enumerate(board.get_game_map()):
             for x, tile in enumerate(row):
-                if tile != "0":
+                if tile != "0" and tile != " ":
                     self.display.blit(
                         board_textures[f"{tile}"], (x * 16, y * 16)
                     )
@@ -204,7 +204,7 @@ class Game:
                 A list of gate objects with image and location information.
         """
         for gate in gates:
-            # dispaly gate
+            # display gate
             self.display.blit(gate.gate_image, gate.gate_location)
 
             for location in gate.plate_locations:
@@ -217,7 +217,7 @@ class Game:
 
         Args:
             doors::[door object, door object]
-                A list of door class objects contianing image and locaiton
+                A list of door class objects containing image and location
                 information of door, door background, and fame.
         """
         for door in doors:
@@ -256,15 +256,15 @@ class Game:
         Move player
 
         This function primarily deals with collisions. The function moves the
-        player than checks for collisons with the board and gates. It then
-        adjusts the locaiton of the player to account for these collisions.
+        player than checks for collisions with the board and gates. It then
+        adjusts the location of the player to account for these collisions.
 
         Args:
             board::board class object
                 board class object that contains information on where solid
                 where.
             gates::[gate object, ...]
-                A list of gate class objects that contians information on where
+                A list of gate class objects that contains information on where
                 the solid aspects of the gate are.
             players::[player object, player object]
                 A list of player objects that contain information on movement
@@ -281,14 +281,14 @@ class Game:
             for gate in gates:
                 collide_blocks += gate.get_solid_blocks()
 
-            # create dictionary for which side the player is coliding on
+            # create dictionary for which side the player is colliding on
             collision_types = {
                 'top': False,
                 'bottom': False,
                 'right': False,
                 'left': False}
 
-            # try movng the player laterally
+            # try mong the player laterally
             player.rect.x += movement[0]
             # get a list of all blocks that the player is colliding with.
             hit_list = self.collision_test(player.rect, collide_blocks)
@@ -300,7 +300,7 @@ class Game:
                     collision_types['right'] = True
                 # if player is moving left
                 elif movement[0] < 0:
-                    # set left side of plyaer to be right side of tile
+                    # set left side of player to be right side of tile
                     player.rect.left = tile.right
                     collision_types['left'] = True
 
@@ -334,7 +334,7 @@ class Game:
 
     def check_for_death(self, board, players):
         """
-        Check to see if player has falen in pool that kills them or if they are
+        Check to see if player has faden in pool that kills them or if they are
         crushed by a gate.
 
         If a magma type player collides with a water pool, they die. Likewise,
@@ -360,7 +360,8 @@ class Game:
                 is_killed = self.collision_test(
                     player.rect, board.get_water_pools())
             # see if either collide with goo
-            is_killed += self.collision_test(player.rect, board.get_goo_pools())
+            is_killed += self.collision_test(player.rect,
+                                             board.get_goo_pools())
 
             # if the is_killed list is longer than 0, kill player
             if is_killed:
@@ -400,9 +401,9 @@ class Game:
 
         Args:
             door::door class object
-                A door object containing information on its locaiton and state
+                A door object containing information on its location and state
             player::player class object
-                A player ojbect containing information on its location
+                A player object containing information on its location
         """
         # check to see if the player is at the door
         door_collision = self.collision_test(player.rect, [door.get_door()])
@@ -446,7 +447,7 @@ class Game:
                 A pygame rect that may be colliding with other rects.
             tiles::[rect, rect, rect]
                 A list of pygame rects. The function checks to see if the
-                arguement "rect" colides with any of these "tiles".
+                argument "rect" collides with any of these "tiles".
         Returns:
             hit_list::list
                 A list of all "tiles" that the argument rect is colliding with.
