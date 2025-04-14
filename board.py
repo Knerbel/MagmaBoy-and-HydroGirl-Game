@@ -53,20 +53,20 @@ class Board:
         self._background = pygame.image.load('data/board_textures/wall.png')
         # create dictionary that maps a string to a board texture
         self._board_textures = {
-            "111": pygame.image.load('data/board_textures/100.png'),
-            "112": pygame.image.load('data/board_textures/100.png'),
-            "113": pygame.image.load('data/board_textures/100.png'),
-            "114": pygame.image.load('data/board_textures/100.png'),
-            "121": pygame.image.load('data/board_textures/100.png'),
-            "122": pygame.image.load('data/board_textures/100.png'),
-            "123": pygame.image.load('data/board_textures/100.png'),
-            "124": pygame.image.load('data/board_textures/100.png'),
+            "111": pygame.image.load('data/board_textures/stone.png'),
+            "112": pygame.image.load('data/board_textures/stone.png'),
+            "113": pygame.image.load('data/board_textures/stone.png'),
+            "114": pygame.image.load('data/board_textures/stone.png'),
+            "121": pygame.image.load('data/board_textures/stone.png'),
+            "122": pygame.image.load('data/board_textures/stone.png'),
+            "123": pygame.image.load('data/board_textures/stone.png'),
+            "124": pygame.image.load('data/board_textures/stone.png'),
             "2": pygame.image.load('data/board_textures/lava.png'),
             "3": pygame.image.load('data/board_textures/water.png'),
             "4": pygame.image.load('data/board_textures/goo.png'),
 
             # new codes
-            "S": pygame.image.load('data/board_textures/100.png'),
+            "S": pygame.image.load('data/board_textures/stone.png'),
             "L": pygame.image.load('data/board_textures/lava.png'),
             "W": pygame.image.load('data/board_textures/water.png'),
             "G": pygame.image.load('data/board_textures/goo.png'),

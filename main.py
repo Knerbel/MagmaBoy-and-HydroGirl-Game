@@ -163,8 +163,8 @@ def run_game(game, controller, level="level1"):
         # special events
         if hydro_girl.is_dead() or magma_boy.is_dead():
             delta = pygame.time.get_ticks() - time_survived
-            # print(frames_survived/delta)
-            print(frames_survived)
+            print(frames_survived/delta)
+            # print(frames_survived)
             return
             # show_death_screen(game, controller, level)
 
